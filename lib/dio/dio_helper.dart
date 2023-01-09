@@ -7,7 +7,7 @@ class DioHelper
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: "https://student.valuxapps.com/api/",
+        baseUrl: "https://medicalapp.eraasoft.com/api/",
         receiveDataWhenStatusError: true,
       ),
     );
@@ -23,7 +23,7 @@ class DioHelper
     dio!.options.headers=
     {
       "Content-Type":"application/json",
-      "lang":lang,
+      // "lang":lang,
       "Authorization":token,
     };
     return await dio!.get(
@@ -35,7 +35,7 @@ class DioHelper
   static Future<Response> postData({
     required String url,
     Map<String ,dynamic>? query,
-    required Map<String,dynamic> data,
+      Map<String,dynamic>? data,
     String lang = "en",
     String? token,
   })async

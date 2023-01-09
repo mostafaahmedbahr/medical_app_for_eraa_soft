@@ -6,8 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medical_app_for_eraa_soft/bloc/states.dart';
+import 'package:medical_app_for_eraa_soft/dio/end_points.dart';
+import 'package:medical_app_for_eraa_soft/models/get_all_patient_model.dart';
+import 'package:medical_app_for_eraa_soft/models/logout_model.dart';
+import 'package:medical_app_for_eraa_soft/screens/auth/login.dart';
 
 import '../core/colors.dart';
+import '../core/utils/nav.dart';
+import '../dio/dio_helper.dart';
+import '../dio/sh/sh.dart';
+import '../models/login_model.dart';
+import '../models/register_model.dart';
 import '../screens/reports_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/more_screen.dart';
@@ -153,6 +162,116 @@ class AppCubit extends Cubit<AppStates>
     isVisible =! isVisible;
     emit(ChangeSuffixIconState());
   }
+
+  var emailCon = TextEditingController();
+  var passCon = TextEditingController();
+  var nameCon = TextEditingController();
+  var titleCon = TextEditingController();
+  var addressCon = TextEditingController();
+  // var typeCon = TextEditingController();
+  RegisterModel? registerModel;
+  void userRegister({
+    required String email,
+    required String password,
+    required String name,
+    required String title,
+    required String address,
+    required String type,
+  })
+  {
+    emit(RegisterLoadingState());
+    DioHelper.postData(
+      url:  "auth/register",
+      data: {
+        "name" : name,
+        "email":email,
+        "password":password,
+        "title":title,
+        "address":address,
+        "type" : type,
+      },
+    ).then((value)
+    {
+      print(value.data);
+      registerModel= RegisterModel.fromJson(value.data);
+      emit(RegisterSuccessState(registerModel!));
+    }).catchError((error)
+    {
+      print("error in register ${error.toString()}");
+      emit(RegisterErrorState(registerModel!));
+    });
+  }
+
+  var typeIndex ;
+  changeTypeOfUser(type)
+  {
+    typeIndex = type;
+    emit(ChangeTypeOfUser());
+  }
+
+  LogoutModel? logoutModel;
+  void signOut(BuildContext context)
+  {
+    SharedPreferencesHelper.removeData(
+        key: "token").then((value)
+    {
+      if(value)
+      {
+        AppNav.customNavigator(
+          context: context,
+          screen: LoginScreen(),
+          finish: true,
+        );
+      }
+    });
+  }
+
+
+  LoginModel? loginModel;
+  void userLogin({
+    required String email,
+    required String password,
+  })
+  {
+    emit(LoginLoadingState());
+    DioHelper.postData(
+      url: "auth/login",
+      data: {
+        "email":email,
+        "password":password,
+      },
+    ).then((value)
+    {
+      print(value.data);
+      loginModel= LoginModel.fromJson(value.data);
+      emit(LoginSuccessState(loginModel!));
+    }).catchError((error)
+    {
+      print("error in login ${error.toString()}");
+      emit(LoginErrorState());
+    });
+  }
+
+
+  GetAllPatientModel? getAllPatientModel;
+  getAllPatient()
+  {
+    emit(GetAllPatientLoadingState());
+    DioHelper.getData(
+      url: "doctorpatients",
+      token: TOKEN,
+    ).then((value)
+    {
+      print(value.data);
+      getAllPatientModel= GetAllPatientModel.fromJson(value.data);
+      emit(GetAllPatientSuccessState());
+    }).catchError((error)
+    {
+      print("error in login ${error.toString()}");
+      emit(GetAllPatientErrorState());
+    });
+  }
+
 
 
 }

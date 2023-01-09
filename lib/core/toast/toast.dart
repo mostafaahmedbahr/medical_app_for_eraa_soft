@@ -1,5 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/core/toast/toast_states.dart';
  class ToastConfig{
 
@@ -23,7 +24,7 @@ Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
     case ToastStates.Success:
-      color = Colors.green;
+      color = AppColors.mainColor;
       break;
     case ToastStates.Error:
       color =  Colors.red;

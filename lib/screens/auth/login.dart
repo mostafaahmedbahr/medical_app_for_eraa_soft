@@ -10,6 +10,12 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../bloc/cubit.dart';
 import '../../bloc/states.dart';
+import '../../core/toast/toast.dart';
+import '../../core/toast/toast_states.dart';
+import '../../core/utils/nav.dart';
+import '../../dio/end_points.dart';
+import '../../dio/sh/sh.dart';
+import '../layout_screen.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -21,7 +27,34 @@ class LoginScreen extends StatelessWidget {
     var passCon = TextEditingController();
     final mediaQuery = MediaQuery.of(context).size;
     return   BlocConsumer<AppCubit,AppStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is LoginSuccessState)
+          {
+              TOKEN = state.loginModel.token!;
+              print(state.loginModel.token);
+              SharedPreferencesHelper.saveData(
+                key: "token",
+                value: state.loginModel.token,
+              );
+              ToastConfig.showToast(
+                msg: "${state.loginModel.message}",
+                toastStates: ToastStates.Success,
+              );
+              AppNav.customNavigator(
+                context: context,
+                screen: const LayoutScreen(),
+                finish: true,
+              );
+            }
+            // if(state is LoginErrorState)
+            // {
+            //   ToastConfig.showToast(
+            //     msg: "${state.loginModel?.message}",
+            //     toastStates: ToastStates.Error,
+            //   );
+            //
+            // }
+        },
         builder: (context, state) {
           var cubit = AppCubit.get(context);
           return Scaffold(
@@ -55,10 +88,11 @@ class LoginScreen extends StatelessWidget {
                           height: 30.0,
                         ),
                         TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(
                             color: Colors.black,
                           ),
-                          controller: emailCon,
+                          controller: cubit.emailCon,
                           validator: (value)
                           {
                             if(value!.isEmpty)
@@ -96,16 +130,16 @@ class LoginScreen extends StatelessWidget {
                           ),
                           onFieldSubmitted: (value)
                           {
-                            // if(formKey.currentState!.validate())
-                            // {
-                            //   cubit.userLogin(
-                            //       email: emailCon.text,
-                            //       password: passCon.text);
-                            // }
+                            if(formKey.currentState!.validate())
+                            {
+                              cubit.userLogin(
+                                  email: cubit.emailCon.text,
+                                  password: cubit.passCon.text);
+                            }
 
                           },
                           obscureText: cubit.isVisible,
-                          controller: passCon,
+                          controller: cubit.passCon,
                           validator: (value){
                             if(value!.isEmpty)
                             {
@@ -144,17 +178,30 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(
                           height: 30.0,
                         ),
-                        CustomButton(
-                            height: 60,
-                            width: double.infinity,
-                            btnColor: AppColors.mainColor,
-                            btnText: const CustomText(
-                              text: "LoGin",
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              textColor: AppColors.mainColorWhite,
+                        ConditionalBuilder(
+                            condition: state is! LoginLoadingState,
+                            builder: (context){
+                              return CustomButton(
+                                height: 60,
+                                width: double.infinity,
+                                btnColor: AppColors.mainColor,
+                                btnText: const CustomText(
+                                  text: "LoGin",
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  textColor: AppColors.mainColorWhite,
+                                ),
+                                onPressed: ()async{
+                                  cubit.userLogin(
+                                    email: cubit.emailCon.text,
+                                    password: cubit.passCon.text,
+                                  );
+                                },
+                              );
+                            },
+                            fallback: (context)=>const Center(
+                              child: CircularProgressIndicator(color: AppColors.mainColor,),
                             ),
-                            onPressed: (){},
                         ),
                         const SizedBox(
                           height: 15.0,

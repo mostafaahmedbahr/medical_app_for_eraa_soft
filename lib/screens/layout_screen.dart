@@ -5,9 +5,11 @@ import 'package:flutter_iconly/flutter_iconly.dart';
  import 'package:medical_app_for_eraa_soft/bloc/cubit.dart';
 import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
+import 'package:medical_app_for_eraa_soft/dio/sh/sh.dart';
 import 'package:medical_app_for_eraa_soft/screens/profil_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../dio/end_points.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_text.dart';
 import 'add_patient_screen.dart';
@@ -229,6 +231,9 @@ class LayoutScreen extends StatelessWidget {
         color: AppColors.mainColor,
       ),),
       onPressed:  ()async {
+        SharedPreferencesHelper.removeData(key: "token");
+        AppCubit.get(context).signOut(context);
+        print(TOKEN);
         // print("DFgdfg");
         // await    SettingsCubit.get(context).deleteAccount();
         // Navigator.push(context, MaterialPageRoute(builder: (context)
