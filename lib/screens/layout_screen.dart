@@ -82,12 +82,13 @@ class LayoutScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: (){
+              print(TOKEN);
               Navigator.push(
                   context, PageTransition(
                   duration: const Duration(milliseconds: 400),
                   reverseDuration: const Duration(milliseconds: 400),
                   type: PageTransitionType.bottomToTop,
-                  child:   AddPatientScreen(),
+                  child:    AddPatientScreen(),
                   inheritTheme: true,
                   ctx: context));
             },
@@ -234,12 +235,6 @@ class LayoutScreen extends StatelessWidget {
         SharedPreferencesHelper.removeData(key: "token");
         AppCubit.get(context).signOut(context);
         print(TOKEN);
-        // print("DFgdfg");
-        // await    SettingsCubit.get(context).deleteAccount();
-        // Navigator.push(context, MaterialPageRoute(builder: (context)
-        // {
-        //   return LoginScreen();
-        // }));
       },
     );
 

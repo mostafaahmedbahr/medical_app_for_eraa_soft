@@ -53,3 +53,7 @@ class LoginSuccessState extends AppStates{
 class GetAllPatientLoadingState extends AppStates{}
 class GetAllPatientErrorState extends AppStates{}
 class GetAllPatientSuccessState extends AppStates{}
+
+class AddPatientLoadingState extends AppStates{}
+class AddPatientErrorState extends AppStates{}
+class AddPatientSuccessState extends AppStates{}

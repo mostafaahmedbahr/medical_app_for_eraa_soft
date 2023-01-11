@@ -23,8 +23,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var emailCon = TextEditingController();
-    var passCon = TextEditingController();
     final mediaQuery = MediaQuery.of(context).size;
     return   BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {
@@ -45,15 +43,8 @@ class LoginScreen extends StatelessWidget {
                 screen: const LayoutScreen(),
                 finish: true,
               );
+
             }
-            // if(state is LoginErrorState)
-            // {
-            //   ToastConfig.showToast(
-            //     msg: "${state.loginModel?.message}",
-            //     toastStates: ToastStates.Error,
-            //   );
-            //
-            // }
         },
         builder: (context, state) {
           var cubit = AppCubit.get(context);
@@ -136,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                                   email: cubit.emailCon.text,
                                   password: cubit.passCon.text);
                             }
-
+                            cubit.getAllPatient();
                           },
                           obscureText: cubit.isVisible,
                           controller: cubit.passCon,
@@ -192,10 +183,14 @@ class LoginScreen extends StatelessWidget {
                                   textColor: AppColors.mainColorWhite,
                                 ),
                                 onPressed: ()async{
-                                  cubit.userLogin(
-                                    email: cubit.emailCon.text,
-                                    password: cubit.passCon.text,
-                                  );
+                                  if(formKey.currentState!.validate())
+                                  {
+                                    cubit.userLogin(
+                                      email: cubit.emailCon.text,
+                                      password: cubit.passCon.text,
+                                    );
+                                  }
+                                  // cubit.getAllPatient();
                                 },
                               );
                             },

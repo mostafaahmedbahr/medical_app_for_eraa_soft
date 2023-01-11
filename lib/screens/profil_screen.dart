@@ -18,19 +18,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){
-        // if(state is ShopAppSuccessUserDataState)
-        // {
-        //   emailCon.text = state.loginModel.data!.name!;
-        // }
-      },
+      listener: (context,state){},
       builder: (context,state){
         var cubit = AppCubit.get(context);
-        // nameCon.text = cubit.userModel!.data!.name!;
-        // emailCon.text = cubit.userModel!.data!.email!;
-        // phoneCon.text = cubit.userModel!.data!.phone!;
         return ConditionalBuilder(
-          // condition: cubit.userModel !=null,
           condition: true,
           builder: (context)=>Padding(
             padding: const EdgeInsets.all(20.0),
@@ -75,6 +66,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                     const SizedBox(height: 30,),
                     TextFormField(
+                      initialValue: cubit.registerModel!.data!.name,
                       controller: nameCon,
                       keyboardType: TextInputType.name,
                       validator: (String? value)

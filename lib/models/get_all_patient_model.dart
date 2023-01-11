@@ -26,7 +26,7 @@ class GetAllPatientModel {
 }
 
 class Data {
-  List<Data>? data;
+  List<Data2>? data;
   Links? links;
   Meta? meta;
 
@@ -34,9 +34,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <Data2>[];
       json['data'].forEach((v) {
-        data!.add(  Data.fromJson(v));
+        data!.add(  Data2.fromJson(v));
       });
     }
     links = json['links'] != null ?   Links.fromJson(json['links']) : null;

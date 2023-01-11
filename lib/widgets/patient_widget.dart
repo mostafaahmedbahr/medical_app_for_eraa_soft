@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 class CustomPatientWidget extends StatelessWidget {
-  const CustomPatientWidget({Key? key}) : super(key: key);
-
+  const CustomPatientWidget({Key? key, required this.name, required this.dataOfBirth, required this.diagnosis, required this.address, required this.visitTime}) : super(key: key);
+final String name;
+final String dataOfBirth;
+final String diagnosis;
+final String address;
+final String visitTime;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,13 +27,13 @@ class CustomPatientWidget extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const[
-              CustomText(text: "Mostafa Bahr",
+            children:  [
+              CustomText(text: name,
               fontWeight: FontWeight.bold,
               fontSize: 20,
               textColor: AppColors.mainColorWhite,),
-               SizedBox(height: 10,),
-              CustomText(text: "Surgeon",
+               const SizedBox(height: 10,),
+              CustomText(text: dataOfBirth,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
                 textColor: AppColors.mainColorWhite,),

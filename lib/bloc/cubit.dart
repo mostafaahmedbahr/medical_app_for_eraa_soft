@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +18,7 @@ import '../core/colors.dart';
 import '../core/utils/nav.dart';
 import '../dio/dio_helper.dart';
 import '../dio/sh/sh.dart';
+import '../models/add_patient_model.dart';
 import '../models/login_model.dart';
 import '../models/register_model.dart';
 import '../screens/reports_screen.dart';
@@ -254,6 +258,7 @@ class AppCubit extends Cubit<AppStates>
 
 
   GetAllPatientModel? getAllPatientModel;
+
   getAllPatient()
   {
     emit(GetAllPatientLoadingState());
@@ -262,15 +267,55 @@ class AppCubit extends Cubit<AppStates>
       token: TOKEN,
     ).then((value)
     {
+      print("nnnnnnnnnn");
       print(value.data);
       getAllPatientModel= GetAllPatientModel.fromJson(value.data);
       emit(GetAllPatientSuccessState());
     }).catchError((error)
     {
-      print("error in login ${error.toString()}");
+      print("error in get all getAllPatient  ${error.toString()}");
       emit(GetAllPatientErrorState());
     });
   }
+
+  AddPatientModel? addPatientModel;
+  addPatient({
+    required String name,
+    required String dateOfBirth,
+    required String diagnosis,
+    required String address,
+    required String visitTime,
+
+  })
+  {
+    emit(AddPatientLoadingState());
+    DioHelper.postData(
+      url: "doctorpatients",
+      data: {
+        "name" : name,
+        "date_of_birth" :dateOfBirth ,
+        "diagnosis" : diagnosis,
+        "address" :address ,
+        "visit_time" : visitTime,
+      },
+      token: TOKEN,
+    ).then((value)
+    {
+      print(value.data);
+      print("add success");
+      addPatientModel= AddPatientModel.fromJson(value.data);
+      emit(AddPatientSuccessState());
+    }).catchError((error)
+    {
+      print("error in addPatient ${error.toString()}");
+      emit(AddPatientErrorState());
+    });
+  }
+
+
+
+
+
 
 
 

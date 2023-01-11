@@ -24,10 +24,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TOKEN = SharedPreferencesHelper.getData(key:"token")??"";
     return BlocProvider(
-        create: (context)=>AppCubit(),
+        create: (context)=>AppCubit()..getAllPatient(),
     child:  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:TOKEN == "" ?  LoginScreen() :const LayoutScreen(),
+      // home:TOKEN == "" ?  LoginScreen() :const LayoutScreen(),
+      home: LoginScreen(),
       builder: (context, child) => ResponsiveWrapper.builder(
         BouncingScrollWrapper.builder(context, child!),
         maxWidth: 1200,
