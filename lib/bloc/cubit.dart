@@ -1,9 +1,3 @@
-
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +7,6 @@ import 'package:medical_app_for_eraa_soft/dio/end_points.dart';
 import 'package:medical_app_for_eraa_soft/models/get_all_patient_model.dart';
 import 'package:medical_app_for_eraa_soft/models/logout_model.dart';
 import 'package:medical_app_for_eraa_soft/screens/auth/login.dart';
-
 import '../core/colors.dart';
 import '../core/utils/nav.dart';
 import '../dio/dio_helper.dart';
@@ -27,7 +20,6 @@ import '../screens/more_screen.dart';
 import '../screens/profil_screen.dart';
 import '../widgets/custom_text.dart';
 import 'dart:io';
-
 class AppCubit extends Cubit<AppStates>
 {
   AppCubit() : super(AppInitialState());
@@ -173,7 +165,7 @@ class AppCubit extends Cubit<AppStates>
   var titleCon = TextEditingController();
   var addressCon = TextEditingController();
   // var typeCon = TextEditingController();
-  RegisterModel? registerModel;
+  LoginModel? loginModel;
   void userRegister({
     required String email,
     required String password,
@@ -197,12 +189,36 @@ class AppCubit extends Cubit<AppStates>
     ).then((value)
     {
       print(value.data);
-      registerModel= RegisterModel.fromJson(value.data);
-      emit(RegisterSuccessState(registerModel!));
+      loginModel= LoginModel.fromJson(value.data);
+      emit(RegisterSuccessState(loginModel!));
     }).catchError((error)
     {
       print("error in register ${error.toString()}");
-      emit(RegisterErrorState(registerModel!));
+      emit(RegisterErrorState(loginModel!));
+    });
+  }
+
+  void userLogin({
+    required String email,
+    required String password,
+  })
+  {
+    emit(LoginLoadingState());
+    DioHelper.postData(
+      url: "auth/login",
+      data: {
+        "email":email,
+        "password":password,
+      },
+    ).then((value)
+    {
+      print(value.data);
+      loginModel= LoginModel.fromJson(value.data);
+      emit(LoginSuccessState(loginModel!));
+    }).catchError((error)
+    {
+      print("error in login ${error.toString()}");
+      emit(LoginErrorState());
     });
   }
 
@@ -231,34 +247,8 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  LoginModel? loginModel;
-  void userLogin({
-    required String email,
-    required String password,
-  })
-  {
-    emit(LoginLoadingState());
-    DioHelper.postData(
-      url: "auth/login",
-      data: {
-        "email":email,
-        "password":password,
-      },
-    ).then((value)
-    {
-      print(value.data);
-      loginModel= LoginModel.fromJson(value.data);
-      emit(LoginSuccessState(loginModel!));
-    }).catchError((error)
-    {
-      print("error in login ${error.toString()}");
-      emit(LoginErrorState());
-    });
-  }
-
 
   GetAllPatientModel? getAllPatientModel;
-
   getAllPatient()
   {
     emit(GetAllPatientLoadingState());
@@ -312,6 +302,73 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
+
+
+  updatePatient({
+    required String name,
+    required String dateOfBirth,
+    required String diagnosis,
+    required String address,
+    required String visitTime,
+    required String patientId,
+  })
+  {
+    emit(UpdatePatientLoadingState());
+    DioHelper.postData(
+      url: "doctorpatients/$patientId?_method=put",
+      data: {
+        "name" : name,
+        "date_of_birth" :dateOfBirth ,
+        "diagnosis" : diagnosis,
+        "address" :address ,
+        "visit_time" : visitTime,
+      },
+      token: TOKEN,
+    ).then((value)
+    {
+      print(value.data);
+      print("Update success");
+      getAllPatientModel= GetAllPatientModel.fromJson(value.data);
+      emit(UpdatePatientSuccessState());
+    }).catchError((error)
+    {
+      print("error in Update Patient ${error.toString()}");
+      emit(UpdatePatientErrorState());
+    });
+  }
+
+
+  updateProfile({
+    required String name,
+    required String password,
+    required String address,
+    required String title,
+    required String id,
+  })
+  {
+    emit(UpdateProfileLoadingState());
+    DioHelper.postData(
+      url: "updatadata/$id?_method=put",
+      data: {
+        "name" : name,
+        "password" :password ,
+        "type" : "admin",
+        "title" : title,
+        "address" :address ,
+      },
+      token: TOKEN,
+    ).then((value)
+    {
+      print(value.data);
+      print("Update profile success");
+      loginModel = LoginModel.fromJson(value.data);
+      emit(UpdateProfileSuccessState());
+    }).catchError((error)
+    {
+      print("error in Update profile ${error.toString()}");
+      emit(UpdateProfileErrorState());
+    });
+  }
 
 
 

@@ -3,7 +3,7 @@ class LoginModel {
   String? token;
   String? message;
   int? code;
-  String? errors;
+  dynamic errors;
 
   LoginModel({this.data, this.token, this.message, this.code, this.errors});
 

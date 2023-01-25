@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/screens/auth/register.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_button.dart';
+import 'package:medical_app_for_eraa_soft/widgets/custom_sized_box.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -63,8 +64,8 @@ class LoginScreen extends StatelessWidget {
                         width: 300,
                         height: 300,
                         ),
-                        const SizedBox(
-                          height: 30.0,
+                        const CustomSizedBox(
+                          height: 30,
                         ),
                         const CustomText(text:"Medical App",
                             fontSize: 50,
@@ -75,8 +76,8 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 20,
                             textColor: AppColors.grey,
                           ),
-                        const SizedBox(
-                          height: 30.0,
+                        const CustomSizedBox(
+                          height: 30,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
@@ -112,8 +113,8 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 15.0,
+                        const CustomSizedBox(
+                          height: 15,
                         ),
                         TextFormField(
                           style: const TextStyle(
@@ -166,8 +167,8 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 30.0,
+                        const CustomSizedBox(
+                          height: 30,
                         ),
                         ConditionalBuilder(
                             condition: state is! LoginLoadingState,
@@ -198,8 +199,8 @@ class LoginScreen extends StatelessWidget {
                               child: CircularProgressIndicator(color: AppColors.mainColor,),
                             ),
                         ),
-                        const SizedBox(
-                          height: 15.0,
+                        const CustomSizedBox(
+                          height: 15,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -226,14 +227,16 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 15.0,
+                        const CustomSizedBox(
+                          height: 15,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset("assets/images/facebook1.png",height: 50,),
-                            const SizedBox(width: 20,),
+                            const CustomSizedBox(
+                              width: 20,
+                            ),
                             Image.asset("assets/images/google.png",height: 50,),
 
                           ],

@@ -3,19 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
  import 'package:carousel_slider/carousel_slider.dart';
 import 'package:medical_app_for_eraa_soft/bloc/cubit.dart';
 import 'package:medical_app_for_eraa_soft/bloc/states.dart';
-import 'package:medical_app_for_eraa_soft/models/get_all_patient_model.dart';
-
+ import 'package:medical_app_for_eraa_soft/screens/update_screen.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../core/colors.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_sized_box.dart';
 import '../widgets/custom_text.dart';
 
 class DetailsScreen extends StatefulWidget {
-    DetailsScreen({Key? key, required this.name, required this.dataOfBirth, required this.diagnosis, required this.address, required this.visitTime , }) : super(key: key);
+    const DetailsScreen({Key? key, required this.name, required this.dataOfBirth, required this.diagnosis, required this.address, required this.visitTime, required this.id , }) : super(key: key);
     final String name;
     final String dataOfBirth;
     final String diagnosis;
     final String address;
     final String visitTime;
+    final String id;
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
@@ -28,6 +31,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
   var current = 0;
   var carouselController = CarouselController();
 
+  @override
+  void initState() {
+    AppCubit.get(context).getAllPatient();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -124,7 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             }),
                       ),
                     ),
-                    const SizedBox(
+                    const CustomSizedBox(
                       height: 17,
                     ),
                     const CustomText(
@@ -133,7 +141,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       textColor: AppColors.mainColorBlack,
                       fontSize: 17,
                     ),
-                    const SizedBox(
+                    const CustomSizedBox(
                       height: 30,
                     ),
                     Container(
@@ -265,8 +273,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    const CustomSizedBox(
                       height: 10,
+                    ),
+                    CustomButton(
+                      height: 60,
+                      onPressed: (){
+                        Navigator.push(
+                            context, PageTransition(
+                            duration: const Duration(milliseconds: 400),
+                            reverseDuration: const Duration(milliseconds: 400),
+                            type: PageTransitionType.leftToRight,
+                            child: UpdatePatientScreen(
+                              name: widget.name,
+                              address: widget.address,
+                              date: widget.dataOfBirth,
+                              diagnosis: widget.diagnosis,
+                              time: widget.visitTime,
+                              id: widget.id,
+                            ),
+                            inheritTheme: true,
+                            ctx: context));
+                      },
+                      btnText: const CustomText(
+                        text: "Update",
+                        fontSize: 20,
+                      ),
+                      btnColor: AppColors.mainColor,
+                      width: double.infinity,
                     ),
                   ],
                 ),

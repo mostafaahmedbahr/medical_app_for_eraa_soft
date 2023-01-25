@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_app_for_eraa_soft/dio/end_points.dart';
 import 'package:medical_app_for_eraa_soft/screens/auth/login.dart';
-import 'package:medical_app_for_eraa_soft/screens/auth/register.dart';
-import 'package:medical_app_for_eraa_soft/screens/layout_screen.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-
+ import 'package:responsive_framework/responsive_framework.dart';
 import 'bloc/cubit.dart';
 import 'dio/dio_helper.dart';
 import 'dio/sh/sh.dart';
@@ -14,11 +11,11 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesHelper.init();
   DioHelper.init();
-  runApp(  MyApp());
+  runApp(  const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-    MyApp({Key? key}) : super(key: key);
+    const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

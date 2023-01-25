@@ -8,7 +8,6 @@ import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/dio/sh/sh.dart';
 import 'package:medical_app_for_eraa_soft/screens/profil_screen.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../dio/end_points.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_text.dart';
@@ -76,7 +75,12 @@ class LayoutScreen extends StatelessWidget {
             ],
           ),
           backgroundColor: AppColors.mainColorWhite,
-          body: PageStorage(
+          body:cubit.getAllPatientModel!.data!.data ==null || cubit.getAllPatientModel!.data!.data ==[] ?
+          const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.mainColor,
+            ),
+          ) :  PageStorage(
             bucket: cubit.bucket,
             child: cubit.currentScreen,
           ),
@@ -88,7 +92,7 @@ class LayoutScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 400),
                   reverseDuration: const Duration(milliseconds: 400),
                   type: PageTransitionType.bottomToTop,
-                  child:    AddPatientScreen(),
+                  child:   const AddPatientScreen(),
                   inheritTheme: true,
                   ctx: context));
             },

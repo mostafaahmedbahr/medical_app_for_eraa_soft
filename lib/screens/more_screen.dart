@@ -6,6 +6,7 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 
 import '../core/colors.dart';
 import '../widgets/custom_image.dart';
+import '../widgets/custom_sized_box.dart';
 import '../widgets/custom_text.dart';
 class MoreScreen extends StatelessWidget {
   const MoreScreen ({Key? key}) : super(key: key);
@@ -21,7 +22,9 @@ class MoreScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                const SizedBox(height:30,),
+                const CustomSizedBox(
+                  height: 30,
+                ),
                 InkWell(
                   onTap: (){
                     // navigatePushed(context,  const LanguagesScreen());
@@ -31,24 +34,22 @@ class MoreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:  const [
                       Icon(Icons.language,color: AppColors.mainColorBlack,),
-                      SizedBox(width: 10,),
+                        CustomSizedBox(
+                        width: 10,
+                      ),
                       CustomText(
                         text: "Change language",
                         fontSize: 20,
                       ),
                       Spacer(),
-                      // CacheHelper.getDataFromSharedPreferenceLang(key: 'lang')=='ar'?
-                      // const CustomText(
-                      //   text: 'العربية',
-                      //   fontSize: 16,
-                      //   color: AppColors.primaryColorGold3,
-                      // ):
                       CustomText(
                         text: 'English',
                         fontSize: 16,
                         textColor: AppColors.mainColor,
                       ),
-                      SizedBox(width: 10,),
+                        CustomSizedBox(
+                        width: 10,
+                      ),
                       Icon(
                         Icons.arrow_forward_ios,
                         size: 20,
@@ -56,7 +57,9 @@ class MoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20,),
+                const CustomSizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +86,9 @@ class MoreScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height:20,),
+                const CustomSizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: (){
                     // navigatePushed(context,const TermsScreen());
@@ -98,7 +103,9 @@ class MoreScreen extends StatelessWidget {
                         height: 25,
                         width: 25,
                       ),
-                      const SizedBox(width: 10,),
+                      const CustomSizedBox(
+                        width: 10,
+                      ),
                       CustomText(
                         text: "terms".replaceAll('The ', ''),
                         fontSize: 20,
@@ -106,7 +113,9 @@ class MoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height:20,),
+                const CustomSizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: (){
                     // navigatePushed(context,  ContactUsScreen());
@@ -122,7 +131,9 @@ class MoreScreen extends StatelessWidget {
                         height: 25,
                         width: 25,
                       ),
-                        SizedBox(width: 10,),
+                        CustomSizedBox(
+                        width: 10,
+                      ),
                         CustomText(
                         text:"connect Us",
                         fontSize: 20,
@@ -130,26 +141,9 @@ class MoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height:20,),
-                // token.isNotEmpty? InkWell(
-                //   onTap: ()async{
-                //     showAlertDialog(context);
-                //   },
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children:   [
-                //       const Icon(Icons.delete,color: Colors.red,),
-                //       const SizedBox(width: 10,),
-                //       CustomText(
-                //         text:LocaleKeys.deleteAccount.tr(),
-                //         fontSize: 16,
-                //         color: Colors.red,
-                //       ),
-                //     ],
-                //   ),
-                // ) : Container(),
-
-
+                const CustomSizedBox(
+                  height: 20,
+                ),
 
               ],
             ),

@@ -2,8 +2,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medical_app_for_eraa_soft/core/colors.dart';
+ import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/screens/layout_screen.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_button.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
@@ -30,14 +29,14 @@ class SignUpScreen extends StatelessWidget {
         if(state is RegisterSuccessState)
         {
             // مهم
-            TOKEN = state.registerModel.token!;
-            print(state.registerModel.token);
+            TOKEN = state.loginModel.token!;
+            debugPrint(state.loginModel.token);
             SharedPreferencesHelper.saveData(
               key: "token",
-              value: state.registerModel.token,
+              value: state.loginModel.token,
             );
             ToastConfig.showToast(
-              msg: "${state.registerModel.message}",
+              msg: "${state.loginModel.message}",
               toastStates: ToastStates.Success,
             );
             AppNav.customNavigator(
@@ -49,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
           if(state is RegisterErrorState)
           {
             ToastConfig.showToast(
-              msg: "${state.registerModel.message}",
+              msg: "${state.loginModel.message}",
               toastStates: ToastStates.Error,
             );
 
@@ -151,6 +150,7 @@ class SignUpScreen extends StatelessWidget {
                               {
                                 return "Please Enter Your Email";
                               }
+                              return null;
                             },
                             decoration:const InputDecoration(
                               border:OutlineInputBorder(),
@@ -186,6 +186,7 @@ class SignUpScreen extends StatelessWidget {
                               {
                                 return "Config Your password";
                               }
+                              return null;
                             },
                             decoration: InputDecoration(
                               border:const OutlineInputBorder(),
@@ -229,6 +230,7 @@ class SignUpScreen extends StatelessWidget {
                               {
                                 return "Please Enter title";
                               }
+                              return null;
                             },
                             decoration:const InputDecoration(
                               border:OutlineInputBorder(),
@@ -265,6 +267,7 @@ class SignUpScreen extends StatelessWidget {
                               {
                                 return "Please Enter address";
                               }
+                              return null;
                             },
                             decoration:const InputDecoration(
                               border:OutlineInputBorder(),
@@ -296,7 +299,7 @@ class SignUpScreen extends StatelessWidget {
                                    Radio(value: "admin", groupValue: cubit.typeIndex,
                                      onChanged: (val){
                                      cubit.changeTypeOfUser(val);
-                                     print(cubit.typeIndex);
+                                     debugPrint(cubit.typeIndex);
                                      },
                                    ),
                                   const Text("admin"),
@@ -308,7 +311,7 @@ class SignUpScreen extends StatelessWidget {
                                   Radio(value: "user", groupValue: cubit.typeIndex,
                                     onChanged: (val){
                                       cubit.changeTypeOfUser(val);
-                                      print(cubit.typeIndex);
+                                      debugPrint(cubit.typeIndex);
                                     },
                                   ),
                                   const Text("user"),

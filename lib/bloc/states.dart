@@ -24,12 +24,12 @@ class ChangeSuffixIconState extends AppStates{}
 
 class RegisterLoadingState extends AppStates{}
 class RegisterSuccessState extends AppStates{
-  RegisterModel registerModel;
-  RegisterSuccessState(this.registerModel);
+  LoginModel loginModel;
+  RegisterSuccessState(this.loginModel);
 }
 class RegisterErrorState extends AppStates{
-  RegisterModel registerModel;
-  RegisterErrorState(this.registerModel);
+  LoginModel loginModel;
+  RegisterErrorState(this.loginModel);
 }
 
 class ChangeTypeOfUser extends AppStates{}
@@ -57,3 +57,11 @@ class GetAllPatientSuccessState extends AppStates{}
 class AddPatientLoadingState extends AppStates{}
 class AddPatientErrorState extends AppStates{}
 class AddPatientSuccessState extends AppStates{}
+
+class UpdatePatientLoadingState extends AppStates{}
+class UpdatePatientErrorState extends AppStates{}
+class UpdatePatientSuccessState extends AppStates{}
+
+class UpdateProfileLoadingState extends AppStates{}
+class UpdateProfileErrorState extends AppStates{}
+class UpdateProfileSuccessState extends AppStates{}
