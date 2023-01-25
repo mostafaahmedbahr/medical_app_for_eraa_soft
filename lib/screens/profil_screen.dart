@@ -5,152 +5,154 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import '../bloc/cubit.dart';
+
 class ProfileScreen extends StatelessWidget {
-    ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
   var passCon = TextEditingController();
-    var formKey = GlobalKey<FormState>();
-    String? name  , title , address;
-    @override
+  var formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){
-        if(state is UpdateProfileSuccessState){
-          final snackBar = SnackBar(
-            content: const Text('Update is done'),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change.
-              },
-            ),
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {
+        if (state is UpdateProfileSuccessState) {
+          const snackBar = SnackBar(
+            content: Text('Update is done'),
+            // action: SnackBarAction(
+            //   label: 'Undo',
+            //   onPressed: () {
+            //     // Some code to undo the change.
+            //   },
+            // ),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
-      builder: (context,state){
+      builder: (context, state) {
         var cubit = AppCubit.get(context);
+        String name = cubit.loginModel!.data!.name.toString();
+        String title = cubit.loginModel!.data!.title.toString();
+        String address = cubit.loginModel!.data!.address.toString();
+        String email = cubit.loginModel!.data!.email.toString();
         return Form(
           key: formKey,
           child: ConditionalBuilder(
-            condition: state is ! LoginSuccessState,
-            builder: (context)=>Padding(
+            condition: state is! LoginSuccessState,
+            builder: (context) => Padding(
               padding: const EdgeInsets.all(20.0),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                  InkWell(
-                    onTap: () {
-                      cubit.openImagePicker(context);
-                    },
-                    child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      const CircleAvatar(
-                          radius: 70,
-                          backgroundColor: Colors.white,
-                          // backgroundImage:
-                          // FileImage(controller.selectImage!)
-                        backgroundImage: AssetImage("assets/images/fun-3d-cartoon-illustration-indian-doctor.jpg"),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 0),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(50),
-                            bottomLeft: Radius.circular(50),
+                    InkWell(
+                      onTap: () {
+                        cubit.openImagePicker(context);
+                      },
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          const CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Colors.white,
+                            // backgroundImage:
+                            // FileImage(controller.selectImage!)
+                            backgroundImage: AssetImage(
+                                "assets/images/fun-3d-cartoon-illustration-indian-doctor.jpg"),
                           ),
-                          color: Colors.white.withOpacity(0.3),
-                        ),
-                        width: 85,
-                        height: 24,
-                        child: const Icon(
-                          Icons.camera_alt,
-                          color: AppColors.mainColor,
-                          size: 25,
-                        ),
-                      )
-                    ],
-                ),
-                  ),
-                    const SizedBox(height: 30,),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(50),
+                                bottomLeft: Radius.circular(50),
+                              ),
+                              color: Colors.white.withOpacity(0.3),
+                            ),
+                            width: 85,
+                            height: 24,
+                            child: const Icon(
+                              Icons.camera_alt,
+                              color: AppColors.mainColor,
+                              size: 25,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     TextFormField(
-                      initialValue: cubit.loginModel!.data!.name,
+                      initialValue: name,
                       keyboardType: TextInputType.name,
-                      validator: (String? value)
-                      {
-                        if(value!.isEmpty)
-                        {
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
                           return "name is must not be empty";
                         }
                         return null;
                       },
-                      onChanged: (val){
+                      onChanged: (val) {
                         name = val;
                       },
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        border:OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        focusedBorder:   OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColor,
-                            )
-                        ),
+                          color: AppColors.mainColor,
+                        )),
                         hintText: "Name",
                         hintStyle: TextStyle(
                           color: AppColors.mainColorBlack,
                         ),
-                        prefixIcon: Icon(Icons.person,
-                        color: AppColors.mainColorBlack,),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.mainColorBlack,
+                        ),
                       ),
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 15.0,
                     ),
                     TextFormField(
                       readOnly: true,
-                      initialValue: cubit.loginModel!.data!.email,
+                      initialValue: email,
                       keyboardType: TextInputType.emailAddress,
-                      validator: (String? value)
-                      {
-                        if(value!.isEmpty)
-                        {
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
                           return "email is must not be empty";
                         }
                         return null;
                       },
-
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        border:OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        focusedBorder:   OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColor,
-                            )
-                        ),
+                          color: AppColors.mainColor,
+                        )),
                         hintText: "email Address",
                         hintStyle: TextStyle(
                           color: AppColors.mainColorBlack,
                         ),
-                        prefixIcon: Icon(Icons.email,color: AppColors.mainColorBlack,),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: AppColors.mainColorBlack,
+                        ),
                       ),
                     ),
-                    const  SizedBox(
+                    const SizedBox(
                       height: 15.0,
                     ),
                     TextFormField(
@@ -159,118 +161,115 @@ class ProfileScreen extends StatelessWidget {
                         color: Colors.black,
                       ),
                       obscureText: cubit.isVisible,
-                      validator: (value){
-                        if(value!.isEmpty)
-                        {
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Config Your password";
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        border:const OutlineInputBorder(),
-                        enabledBorder:const  OutlineInputBorder(
+                        border: const OutlineInputBorder(),
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        focusedBorder:  const OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColor,
-                            )
-                        ),
+                          color: AppColors.mainColor,
+                        )),
                         hintText: "New password",
                         hintStyle: const TextStyle(
                           color: Colors.black,
                         ),
-                        prefixIcon:const Icon(Icons.lock,
-                          color: Colors.black,),
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.black,
+                        ),
                         suffixIcon: IconButton(
                           color: Colors.white,
-                          icon: cubit.isVisible ?const Icon(Icons.visibility_off):const Icon(Icons.visibility),
-                          onPressed: (){
+                          icon: cubit.isVisible
+                              ? const Icon(Icons.visibility_off)
+                              : const Icon(Icons.visibility),
+                          onPressed: () {
                             cubit.changeSuffixIcon();
                           },
                         ),
                       ),
                     ),
-                    const  SizedBox(
+                    const SizedBox(
                       height: 15.0,
                     ),
                     TextFormField(
-                      initialValue: cubit.loginModel!.data!.title,
+                      initialValue: title,
                       style: const TextStyle(
                         color: Colors.black,
                       ),
                       keyboardType: TextInputType.text,
-                      validator: (value)
-                      {
-                        if(value!.isEmpty)
-                        {
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Please Enter title";
                         }
                         return null;
                       },
-                      onChanged: (val){
+                      onChanged: (val) {
                         title = val;
                       },
-                      decoration:const InputDecoration(
-                        border:OutlineInputBorder(),
-                        enabledBorder:  OutlineInputBorder(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        focusedBorder:   OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColor,
-                            )
-                        ),
+                          color: AppColors.mainColor,
+                        )),
                         hintText: "Title",
-                        hintStyle:   TextStyle(
+                        hintStyle: TextStyle(
                           color: Colors.black,
                         ),
-                        prefixIcon: Icon(Icons.title,
-                          color: Colors.black,),
+                        prefixIcon: Icon(
+                          Icons.title,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 10.0,
                     ),
                     TextFormField(
-                      initialValue: cubit.loginModel!.data!.address,
+                      initialValue: address,
                       style: const TextStyle(
                         color: Colors.black,
                       ),
                       keyboardType: TextInputType.text,
-                      validator: (value)
-                      {
-                        if(value!.isEmpty)
-                        {
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Please Enter address";
                         }
                         return null;
                       },
-                      onChanged: (val){
+                      onChanged: (val) {
                         address = val;
                       },
-                      decoration:const InputDecoration(
-                        border:OutlineInputBorder(),
-                        enabledBorder:  OutlineInputBorder(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColorBlack,
-                            )
-                        ),
-                        focusedBorder:   OutlineInputBorder(
+                          color: AppColors.mainColorBlack,
+                        )),
+                        focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColors.mainColor,
-                            )
-                        ),
+                          color: AppColors.mainColor,
+                        )),
                         hintText: "Address",
-                        hintStyle:   TextStyle(
+                        hintStyle: TextStyle(
                           color: Colors.black,
                         ),
-                        prefixIcon: Icon(Icons.place_rounded,
-                          color: Colors.black,),
+                        prefixIcon: Icon(
+                          Icons.place_rounded,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -283,7 +282,11 @@ class ProfileScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           primary: AppColors.mainColor,
                         ),
-                        onPressed: (){
+                        onPressed: () {
+                          debugPrint(name.toString());
+                          debugPrint(passCon.text.toString());
+                          debugPrint(title.toString());
+                          debugPrint(address.toString());
                           if(formKey.currentState!.validate())
                           {
                             cubit.updateProfile(
@@ -296,9 +299,10 @@ class ProfileScreen extends StatelessWidget {
                           }
                           print("111111111111");
                         },
-                        child:const CustomText(text:"Update",
-                            fontSize: 30,
-                          ),
+                        child: const CustomText(
+                          text: "Update",
+                          fontSize: 30,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -308,13 +312,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            fallback:(context)=> const Center(
+            fallback: (context) => const Center(
               child: CircularProgressIndicator(),
             ),
           ),
         );
       },
-
     );
   }
 }
