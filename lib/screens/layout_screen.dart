@@ -16,9 +16,19 @@ import 'more_screen.dart';
 import 'notifications_screen.dart';
 import 'reports_screen.dart';
 import 'home_screen.dart';
-class LayoutScreen extends StatelessWidget {
+class LayoutScreen extends StatefulWidget {
   const LayoutScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LayoutScreen> createState() => _LayoutScreenState();
+}
+
+class _LayoutScreenState extends State<LayoutScreen> {
+  @override
+  void initState() {
+    context.read<AppCubit>().getAllPatient();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
@@ -222,6 +232,7 @@ class LayoutScreen extends StatelessWidget {
 
     );
   }
+
   showAlertDialog(BuildContext context) {
     Widget cancelButton = TextButton(
       child: const Text("Cancel",style: TextStyle(

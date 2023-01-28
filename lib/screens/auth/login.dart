@@ -8,6 +8,7 @@ import 'package:medical_app_for_eraa_soft/widgets/custom_button.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_sized_box.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../bloc/cubit.dart';
 import '../../bloc/states.dart';
@@ -20,11 +21,11 @@ import '../layout_screen.dart';
 
 
 class LoginScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
   LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context).size;
+    var formKey = GlobalKey<FormState>();
+    // final mediaQuery = MediaQuery.of(context).size;
     return   BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {
           if(state is LoginSuccessState)
@@ -46,6 +47,12 @@ class LoginScreen extends StatelessWidget {
               );
 
             }
+          if(state is LoginErrorState){
+            ToastConfig.showToast(
+                msg: "Check Your Email and Password",
+                toastStates: ToastStates.Error,
+            );
+          }
         },
         builder: (context, state) {
           var cubit = AppCubit.get(context);
@@ -60,7 +67,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset("assets/images/fun-3d-cartoon-illustration-indian-doctor (1).jpg",
+                        Image.asset("assets/images/doctor-with-his-arms-crossed-white-background.jpg",
                         width: 300,
                         height: 300,
                         ),
@@ -91,6 +98,7 @@ class LoginScreen extends StatelessWidget {
                             {
                               return "الايميل المستخدم غير صيحيح";
                             }
+                            return null;
                           },
                           decoration: const InputDecoration(
                             border:OutlineInputBorder(),

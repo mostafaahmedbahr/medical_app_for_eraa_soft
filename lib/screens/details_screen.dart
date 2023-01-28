@@ -25,8 +25,8 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   List imagesSlider = [
-    "assets/images/fun-3d-cartoon-illustration-indian-doctor.jpg",
-    "assets/images/fun-3d-cartoon-illustration-indian-doctor (1).jpg",
+    "assets/images/doctor-with-his-arms-crossed-white-background.jpg",
+    "assets/images/doctor-presenting-something-isolated-white-background.jpg",
   ];
   var current = 0;
   var carouselController = CarouselController();
@@ -41,7 +41,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = AppCubit.get(context);
+        // var cubit = AppCubit.get(context);
         return SafeArea(
           child: Scaffold(
             backgroundColor: const Color(0xffFFFFFF),

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TOKEN = SharedPreferencesHelper.getData(key:"token")??"";
     return BlocProvider(
-        create: (context)=>AppCubit()..getAllPatient(),
+        create: (context)=>AppCubit(),
     child:  MaterialApp(
       debugShowCheckedModeBanner: false,
       // home:TOKEN == "" ?  LoginScreen() :const LayoutScreen(),

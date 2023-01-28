@@ -24,7 +24,7 @@ Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
     case ToastStates.Success:
-      color = AppColors.mainColor;
+      color = Colors.green;
       break;
     case ToastStates.Error:
       color =  Colors.red;

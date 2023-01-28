@@ -7,29 +7,21 @@ import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import '../bloc/cubit.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
-  var passCon = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is UpdateProfileSuccessState) {
-          const snackBar = SnackBar(
-            content: Text('Update is done'),
-            // action: SnackBarAction(
-            //   label: 'Undo',
-            //   onPressed: () {
-            //     // Some code to undo the change.
-            //   },
-            // ),
-          );
+          const snackBar = SnackBar(content: Text('Update is done'),);
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
       builder: (context, state) {
         var cubit = AppCubit.get(context);
+        var passCon = TextEditingController();
+        var formKey = GlobalKey<FormState>();
         String name = cubit.loginModel!.data!.name.toString();
         String title = cubit.loginModel!.data!.title.toString();
         String address = cubit.loginModel!.data!.address.toString();
@@ -56,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                             // backgroundImage:
                             // FileImage(controller.selectImage!)
                             backgroundImage: AssetImage(
-                                "assets/images/fun-3d-cartoon-illustration-indian-doctor.jpg"),
+                                "assets/images/doctor-with-his-arms-crossed-white-background.jpg"),
                           ),
                           Container(
                             margin: const EdgeInsets.only(bottom: 0),

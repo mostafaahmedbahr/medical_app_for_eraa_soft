@@ -26,6 +26,7 @@ class AppCubit extends Cubit<AppStates>
 
   static AppCubit get(context)=>BlocProvider.of(context);
 
+
   int bottomNavBarIndex = 0;
   changeBottomNavBarIndex(index){
     bottomNavBarIndex = index;

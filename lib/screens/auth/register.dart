@@ -82,7 +82,7 @@ class SignUpScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset("assets/images/fun-3d-cartoon-illustration-indian-doctor (1).jpg",
+                          Image.asset("assets/images/doctor-with-his-arms-crossed-white-background.jpg",
                             width: 200,
                             height: 200,
                           ),

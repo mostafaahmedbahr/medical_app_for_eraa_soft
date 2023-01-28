@@ -20,7 +20,7 @@ final String id;
       ),
       child: Row(
         children: [
-          Image.asset("assets/images/fun-3d-cartoon-illustration-indian-doctor.jpg",width: 150,
+          Image.asset("assets/images/doctor-with-his-arms-crossed-white-background.jpg",width: 150,
           height: 140,
           fit: BoxFit.cover,
           ),
