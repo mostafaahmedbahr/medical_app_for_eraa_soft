@@ -173,7 +173,6 @@ class AppCubit extends Cubit<AppStates>
     required String name,
     required String title,
     required String address,
-    required String type,
   })
   {
     emit(RegisterLoadingState());
@@ -185,7 +184,6 @@ class AppCubit extends Cubit<AppStates>
         "password":password,
         "title":title,
         "address":address,
-        "type" : type,
       },
     ).then((value)
     {
@@ -195,7 +193,10 @@ class AppCubit extends Cubit<AppStates>
     }).catchError((error)
     {
       print("error in register ${error.toString()}");
-      emit(RegisterErrorState(loginModel!));
+      // if(error.code == "The email must be a valid email address."){
+      //   error = "The email must be a valid email address.";
+      // }
+      emit(RegisterErrorState( ));
     });
   }
 

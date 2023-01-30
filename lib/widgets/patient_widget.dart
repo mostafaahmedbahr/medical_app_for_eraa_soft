@@ -25,20 +25,29 @@ final String id;
           fit: BoxFit.cover,
           ),
           const SizedBox(width: 10,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
-              CustomText(text: name,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              textColor: AppColors.mainColorWhite,),
-               const SizedBox(height: 10,),
-              CustomText(text: dataOfBirth,
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                textColor: AppColors.mainColorWhite,),
-            ],
+          Expanded(
+            flex: 3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:  [
+                Flexible(child: Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),),
+               
+                 const SizedBox(height: 10,),
+                CustomText(text: dataOfBirth,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  textColor: AppColors.mainColorWhite,),
+              ],
+            ),
           ),
           const Spacer(),
           IconButton(onPressed: (){},

@@ -40,12 +40,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
           stream: Connectivity().onConnectivityChanged,
           builder: (context,snapshot) {
             return snapshot.data == ConnectivityResult.none ?
-            Center(
-              child: CustomText(text: "No Internet",
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                textColor: Colors.black87,),
-            ): Scaffold(
+            Scaffold(
+              body: Center(
+                child: CustomText(text: "No Internet",
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  textColor: Colors.black87,),
+              ),
+            ): 
+            Scaffold(
               appBar: CustomAppBar(
                 appBarToolbarHeight: 70,
                 automaticallyLeading: true,
@@ -98,8 +101,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 ],
               ),
               backgroundColor: AppColors.mainColorWhite,
-              body: cubit.getAllPatientModel!.data!.data == null ||
-                  cubit.getAllPatientModel!.data!.data == [] ?
+              body: cubit.getAllPatientModel?.data?.data == null ||
+                  cubit.getAllPatientModel?.data?.data == [] ?
               const Center(
                 child: CircularProgressIndicator(
                   color: AppColors.mainColor,

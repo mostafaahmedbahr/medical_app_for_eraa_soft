@@ -28,8 +28,7 @@ class RegisterSuccessState extends AppStates{
   RegisterSuccessState(this.loginModel);
 }
 class RegisterErrorState extends AppStates{
-  LoginModel loginModel;
-  RegisterErrorState(this.loginModel);
+
 }
 
 class ChangeTypeOfUser extends AppStates{}

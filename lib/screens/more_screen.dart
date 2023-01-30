@@ -8,6 +8,7 @@ import '../core/colors.dart';
 import '../widgets/custom_image.dart';
 import '../widgets/custom_sized_box.dart';
 import '../widgets/custom_text.dart';
+import 'more_screen/terms_screen.dart';
 class MoreScreen extends StatelessWidget {
   const MoreScreen ({Key? key}) : super(key: key);
 
@@ -91,7 +92,9 @@ class MoreScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: (){
-                    // navigatePushed(context,const TermsScreen());
+                     Navigator.push(context,MaterialPageRoute(builder: (context){
+                       return TermsScreen();
+                     }));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

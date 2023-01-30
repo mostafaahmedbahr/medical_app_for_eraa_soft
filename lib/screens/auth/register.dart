@@ -49,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
           if(state is RegisterErrorState)
           {
             ToastConfig.showToast(
-              msg: "${state.loginModel.message}",
+              msg: "Verify the data you entered , perhaps the email is already used",
               toastStates: ToastStates.Error,
             );
 
@@ -155,7 +155,7 @@ class SignUpScreen extends StatelessWidget {
                         controller: cubit.emailCon,
                         validator: (value)
                         {
-                          if(value!.isEmpty)
+                          if(value!.isEmpty || value.length < 6)
                           {
                             return "Please Enter Your Email";
                           }
@@ -235,9 +235,9 @@ class SignUpScreen extends StatelessWidget {
                         controller: cubit.titleCon,
                         validator: (value)
                         {
-                          if(value!.isEmpty)
+                          if(value!.isEmpty|| value.length<6)
                           {
-                            return "Please Enter title";
+                            return "The title must be at least 6 characters.";
                           }
                           return null;
                         },
@@ -272,9 +272,9 @@ class SignUpScreen extends StatelessWidget {
                         controller: cubit.addressCon,
                         validator: (value)
                         {
-                          if(value!.isEmpty)
+                          if(value!.isEmpty || value.length<6)
                           {
-                            return "Please Enter address";
+                            return "The address must be at least 6 characters.";
                           }
                           return null;
                         },
@@ -301,34 +301,34 @@ class SignUpScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Row(
-                        children: [
-                          Row(
-                            children: [
-                              Radio(value: "admin", groupValue: cubit.typeIndex,
-                                onChanged: (val){
-                                  cubit.changeTypeOfUser(val);
-                                  debugPrint(cubit.typeIndex);
-                                },
-                              ),
-                              const Text("admin"),
-
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Radio(value: "user", groupValue: cubit.typeIndex,
-                                onChanged: (val){
-                                  cubit.changeTypeOfUser(val);
-                                  debugPrint(cubit.typeIndex);
-                                },
-                              ),
-                              const Text("user"),
-                            ],
-                          ),
-
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Row(
+                      //       children: [
+                      //         Radio(value: "admin", groupValue: cubit.typeIndex,
+                      //           onChanged: (val){
+                      //             cubit.changeTypeOfUser(val);
+                      //             debugPrint(cubit.typeIndex);
+                      //           },
+                      //         ),
+                      //         const Text("admin"),
+                      //
+                      //       ],
+                      //     ),
+                      //     Row(
+                      //       children: [
+                      //         Radio(value: "user", groupValue: cubit.typeIndex,
+                      //           onChanged: (val){
+                      //             cubit.changeTypeOfUser(val);
+                      //             debugPrint(cubit.typeIndex);
+                      //           },
+                      //         ),
+                      //         const Text("user"),
+                      //       ],
+                      //     ),
+                      //
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -381,21 +381,23 @@ class SignUpScreen extends StatelessWidget {
                       //   height: 30.0,
                       // ),
                       ConditionalBuilder(
-                        condition: state is! RegisterLoadingState,
+                        condition: state is! RegisterLoadingState || state is! RegisterErrorState,
                         builder: (context)=> SizedBox(
                           width: double.infinity,
                           height: 60,
                           child: CustomButton(
                             height: 60,
                             onPressed: () async{
-                              cubit.userRegister(
-                                  email: cubit.emailCon.text,
-                                  password: cubit.passCon.text,
-                                  name: cubit.nameCon.text,
-                                  title: cubit.titleCon.text,
-                                  address: cubit.addressCon.text,
-                                  type: cubit.typeIndex
-                              );
+                             if(formKey.currentState!.validate()){
+                               cubit.userRegister(
+                                 email: cubit.emailCon.text,
+                                 password: cubit.passCon.text,
+                                 name: cubit.nameCon.text,
+                                 title: cubit.titleCon.text,
+                                 address: cubit.addressCon.text,
+
+                               );
+                             }
                               // cubit.userRegister(
                               //     email: "email",
                               //     password: "123456789",

@@ -9,7 +9,6 @@ import 'package:medical_app_for_eraa_soft/widgets/custom_button.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_sized_box.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../bloc/cubit.dart';
 import '../../bloc/states.dart';
@@ -249,17 +248,17 @@ class LoginScreen extends StatelessWidget {
                               const CustomSizedBox(
                                 height: 15,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset("assets/images/facebook1.png",height: 50,),
-                                  const CustomSizedBox(
-                                    width: 20,
-                                  ),
-                                  Image.asset("assets/images/google.png",height: 50,),
-
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Image.asset("assets/images/facebook1.png",height: 50,),
+                              //     const CustomSizedBox(
+                              //       width: 20,
+                              //     ),
+                              //     Image.asset("assets/images/google.png",height: 50,),
+                              //
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),
