@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_app_for_eraa_soft/bloc/cubit.dart';
@@ -14,23 +15,35 @@ class ReportsScreen extends StatelessWidget {
         listener: (context,state){},
     builder: (context,state){
       var cubit = AppCubit.get(context);
-          return  Column(
+          return  StreamBuilder<ConnectivityResult>(
+            stream: Connectivity().onConnectivityChanged,
+    builder: (context,snapshot) {
+      return snapshot.data == ConnectivityResult.none ?
+      Center(
+        child: CustomText(text: "No Internet",
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          textColor: Colors.black87,),
+      ): Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(text:"All Patient",
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                  CustomText(text:"${cubit.getAllPatientModel?.data?.data?.length}",
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    textColor: Colors.green,
-                  ),
-                ],
+              CustomText(text:"All Patient",
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+              CustomText(text:"${cubit.getAllPatientModel?.data?.data?.length}",
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                textColor: Colors.green,
               ),
             ],
+          ),
+        ],
+      );
+    }
+
           );
     }
 
