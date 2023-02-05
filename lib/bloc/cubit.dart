@@ -373,6 +373,13 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
+  var visible = false;
+  changeVisible( )
+  {
+    visible =  !visible;
+    emit(ChangeVisibleState());
+  }
+
 
   SearchModel? searchModel;
   search({

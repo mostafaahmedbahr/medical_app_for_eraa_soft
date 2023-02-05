@@ -68,3 +68,5 @@ class UpdateProfileSuccessState extends AppStates{}
 class SearchLoadingState extends AppStates{}
 class SearchErrorState extends AppStates{}
 class SearchSuccessState extends AppStates{}
+
+class ChangeVisibleState extends AppStates{}

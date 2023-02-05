@@ -42,7 +42,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        // var cubit = AppCubit.get(context);
+        var cubit = AppCubit.get(context);
         return StreamBuilder<ConnectivityResult>(
           stream: Connectivity().onConnectivityChanged,
           builder: (context,snapshot) {
@@ -94,71 +94,82 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           children: [
-                            SizedBox(
-                              height: 332,
-                              width: double.infinity,
-                              child: CarouselSlider(
-                                items: imagesSlider.map((item) {
-                                  return Stack(
-                                      alignment: Alignment.bottomCenter,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              // Get.to(()=>TestFullScreen());
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius
-                                                  .circular(10),
-                                              child: Image.asset(
-                                                "$item",
-                                                height: 332,
-                                                fit: BoxFit.fill,
-                                                width: double.infinity,
-                                              ),
-                                            )),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              bottom: 14),
-                                          alignment: Alignment.bottomCenter,
-                                          height: 30,
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius
-                                                  .circular(15),
-                                              color: AppColors.mainColor),
-                                          child: CustomText(
-                                            text:
-                                            '${current + 1}/${imagesSlider
-                                                .length}',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            textColor: Colors.white,
-                                          ),
-                                        ),
-                                      ]);
-                                }).toList(),
-                                carouselController: carouselController,
-                                options: CarouselOptions(
-                                    autoPlay: true,
-                                    enlargeCenterPage: true,
-                                    // height: MediaQuery.of(context).size.height * 0.4,
-                                    aspectRatio: 1,
-                                    viewportFraction: 1,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: true,
-                                    reverse: false,
-                                    autoPlayInterval: const Duration(
-                                        seconds: 4),
-                                    autoPlayAnimationDuration:
-                                    const Duration(seconds: 4),
-                                    scrollDirection: Axis.horizontal,
-                                    onPageChanged: (index, reason) {
-                                      changeIndicator(index);
-                                    }),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: 332,
+                            //   width: double.infinity,
+                            //   child: CarouselSlider(
+                            //     items: imagesSlider.map((item) {
+                            //       return Stack(
+                            //           alignment: Alignment.bottomCenter,
+                            //           children: [
+                            //             GestureDetector(
+                            //                 onTap: () {
+                            //                   // Get.to(()=>TestFullScreen());
+                            //                 },
+                            //                 child: ClipRRect(
+                            //                   borderRadius: BorderRadius
+                            //                       .circular(10),
+                            //                   child: Image.asset(
+                            //                     "$item",
+                            //                     height: 332,
+                            //                     fit: BoxFit.fill,
+                            //                     width: double.infinity,
+                            //                   ),
+                            //                 )),
+                            //             Container(
+                            //               margin: const EdgeInsets.only(
+                            //                   bottom: 14),
+                            //               alignment: Alignment.bottomCenter,
+                            //               height: 30,
+                            //               width: 50,
+                            //               decoration: BoxDecoration(
+                            //                   borderRadius: BorderRadius
+                            //                       .circular(15),
+                            //                   color: AppColors.mainColor),
+                            //               child: CustomText(
+                            //                 text:
+                            //                 '${current + 1}/${imagesSlider
+                            //                     .length}',
+                            //                 fontSize: 16,
+                            //                 fontWeight: FontWeight.w500,
+                            //                 textColor: Colors.white,
+                            //               ),
+                            //             ),
+                            //           ]);
+                            //     }).toList(),
+                            //     carouselController: carouselController,
+                            //     options: CarouselOptions(
+                            //         autoPlay: true,
+                            //         enlargeCenterPage: true,
+                            //         // height: MediaQuery.of(context).size.height * 0.4,
+                            //         aspectRatio: 1,
+                            //         viewportFraction: 1,
+                            //         initialPage: 0,
+                            //         enableInfiniteScroll: true,
+                            //         reverse: false,
+                            //         autoPlayInterval: const Duration(
+                            //             seconds: 4),
+                            //         autoPlayAnimationDuration:
+                            //         const Duration(seconds: 4),
+                            //         scrollDirection: Axis.horizontal,
+                            //         onPageChanged: (index, reason) {
+                            //           changeIndicator(index);
+                            //         }),
+                            //   ),
+                            // ),
                             const CustomSizedBox(
                               height: 17,
+                            ),
+                            CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              // backgroundImage:
+                              // FileImage(controller.selectImage!)
+                              backgroundImage: AssetImage(
+                                  "assets/images/caring-caucasian-female-doctor-use-phonendoscope-examine-male-patient-heart-rate-consultation-hospital-woman-nurse-gp-use-stethoscope-listen-man-heartbeat-clinic.jpg"),
+                            ),
+                            const CustomSizedBox(
+                              height: 25,
                             ),
                             const CustomText(
                               text: "Some Information : ",
@@ -234,22 +245,67 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               horizontal: 35),
                                           child: Row(
                                             children: [
-                                              const Icon(
-                                                  Icons.check_circle_outline,
-                                                  color: AppColors
-                                                      .mainColorGreen),
-                                              const SizedBox(
-                                                width: 10,
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                      Icons.check_circle_outline,
+                                                      color: AppColors
+                                                          .mainColorGreen),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  CustomText(
+                                                    text: widget.diagnosis,
+                                                    textColor: AppColors.darkGrey,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 14,
+                                                  ),
+                                                ],
                                               ),
-                                              CustomText(
-                                                text: widget.diagnosis,
-                                                textColor: AppColors.darkGrey,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
+                                              Spacer(),
+                                              IconButton(
+                                                color: AppColors.mainColor,
+                                                  onPressed: (){
+                                                  print(cubit.visible);
+                                                  cubit.changeVisible();
+                                                  },
+                                                  icon: Icon(Icons.add),
                                               ),
                                             ],
                                           ),
                                         ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                 Visibility(
+                                   visible: cubit.visible,
+                                   child:     TextFormField(
+                                     // controller: NewCon,
+                                     decoration: const InputDecoration(
+                                         enabledBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(
+                                               color: AppColors.mainColorGreen,
+                                             )),
+                                         border: OutlineInputBorder(
+                                             borderSide: BorderSide(
+                                               color: AppColors.mainColorGreen,
+                                             )),
+                                         focusedBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(
+                                               color: AppColors.mainColorBlack,
+                                             )),
+                                         contentPadding: EdgeInsets.symmetric(
+                                             horizontal: 10, vertical: 10),
+                                         icon: Icon(
+                                           Icons.sick,
+                                           color: AppColors.mainColorBlack,
+                                         ),
+                                         labelText: "Diagnosis",
+                                         labelStyle: TextStyle(
+                                           color: AppColors.mainColorBlack,
+                                         )),
+                                   ),
+                                 ),
                                         const SizedBox(
                                           height: 10,
                                         ),

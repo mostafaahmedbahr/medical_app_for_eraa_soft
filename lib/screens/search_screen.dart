@@ -23,7 +23,6 @@ class SearchScreen extends StatelessWidget {
         return   StreamBuilder<ConnectivityResult>(
           stream: Connectivity().onConnectivityChanged,
     builder: (context,snapshot) {
-
             return snapshot.data == ConnectivityResult.none ?
             Scaffold(
               body: Center(
