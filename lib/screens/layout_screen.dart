@@ -8,6 +8,7 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/dio/sh/sh.dart';
 import 'package:medical_app_for_eraa_soft/screens/profil_screen.dart';
+import 'package:medical_app_for_eraa_soft/widgets/custom_sized_box.dart';
 import 'package:page_transition/page_transition.dart';
 import '../dio/end_points.dart';
 import '../widgets/custom_app_bar.dart';
@@ -42,10 +43,20 @@ class _LayoutScreenState extends State<LayoutScreen> {
             return snapshot.data == ConnectivityResult.none ?
             Scaffold(
               body: Center(
-                child: CustomText(text: "No Internet",
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  textColor: Colors.black87,),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                    Image.asset("assets/images/wifi.png",
+                    height: 100,),
+                    CustomSizedBox(
+                      height: 20,
+                    ),
+                    CustomText(text: "No Internet",
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      textColor: Colors.black87,),
+                  ],
+                ),
               ),
             ): 
             Scaffold(

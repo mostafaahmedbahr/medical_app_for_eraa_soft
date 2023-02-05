@@ -6,6 +6,7 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 import 'package:medical_app_for_eraa_soft/dio/end_points.dart';
 import 'package:medical_app_for_eraa_soft/models/get_all_patient_model.dart';
 import 'package:medical_app_for_eraa_soft/models/logout_model.dart';
+import 'package:medical_app_for_eraa_soft/models/search_model.dart';
 import 'package:medical_app_for_eraa_soft/screens/auth/login.dart';
 import '../core/colors.dart';
 import '../core/utils/nav.dart';
@@ -369,6 +370,27 @@ class AppCubit extends Cubit<AppStates>
     {
       print("error in Update profile ${error.toString()}");
       emit(UpdateProfileErrorState());
+    });
+  }
+
+
+  SearchModel? searchModel;
+  search({
+    required String searchName,
+    required String token,
+})async{
+    emit(SearchLoadingState());
+    DioHelper.getData(
+        url: "search?name=$searchName&token=$token",
+    token: TOKEN,
+    ).then((value){
+      print("2222");
+      searchModel = SearchModel.fromJson(value.data);
+      print(value.data);
+      emit(SearchSuccessState());
+    }).catchError((error){
+      emit(SearchErrorState());
+      print("error in search ${error.toString()}");
     });
   }
 

@@ -6,6 +6,7 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
 import 'package:medical_app_for_eraa_soft/core/colors.dart';
 import 'package:medical_app_for_eraa_soft/widgets/custom_text.dart';
 import '../bloc/cubit.dart';
+import '../widgets/custom_sized_box.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -32,10 +33,20 @@ class ProfileScreen extends StatelessWidget {
     builder: (context,snapshot) {
       return snapshot.data == ConnectivityResult.none ?
       Center(
-        child: CustomText(text: "No Internet",
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          textColor: Colors.black87,),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/wifi.png",
+              height: 100,),
+            CustomSizedBox(
+              height: 20,
+            ),
+            CustomText(text: "No Internet",
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              textColor: Colors.black87,),
+          ],
+        ),
       ):Form(
         key: formKey,
         child: ConditionalBuilder(

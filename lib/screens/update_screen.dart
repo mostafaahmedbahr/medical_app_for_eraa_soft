@@ -8,6 +8,7 @@ import 'package:medical_app_for_eraa_soft/bloc/states.dart';
  import 'package:medical_app_for_eraa_soft/screens/layout_screen.dart';
 import '../core/colors.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_sized_box.dart';
 import '../widgets/custom_text.dart';
 
 class UpdatePatientScreen extends StatefulWidget {
@@ -100,10 +101,20 @@ class _UpdatePatientScreenState extends State<UpdatePatientScreen> {
           ),
           body:snapshot.data == ConnectivityResult.none ?
           Center(
-            child: CustomText(text: "No Internet",
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              textColor: Colors.black87,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/wifi.png",
+                  height: 100,),
+                CustomSizedBox(
+                  height: 20,
+                ),
+                CustomText(text: "No Internet",
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  textColor: Colors.black87,),
+              ],
+            ),
           ): SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),

@@ -72,10 +72,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 body: snapshot.data == ConnectivityResult.none ?
                 Center(
-                  child: CustomText(text: "No Internet",
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    textColor: Colors.black87,),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/wifi.png",
+                        height: 100,),
+                      CustomSizedBox(
+                        height: 20,
+                      ),
+                      CustomText(text: "No Internet",
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        textColor: Colors.black87,),
+                    ],
+                  ),
                 ):SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
